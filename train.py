@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from tensorflow.keras.utils import to_categorical
 from keras.callbacks import ReduceLROnPlateau
 from keras.models import load_model
-from processdata import dataGenerator
+from DataGenerator import dataGenerator
 from keras.callbacks import ModelCheckpoint
 
 
