@@ -6,38 +6,37 @@ from keras.models import Model, load_model
 
 from keras.backend import argmax
 
+height = 512
+width = 512
 
-data = np.array(Image.open('22.jpg'))
+data = np.array(Image.open('predict.jpg'))
 
-data = np.array(Image.fromarray(data.astype('uint8')).resize((512, 512)))
+data = np.array(Image.fromarray(data.astype('uint8')).resize((width, height)))
 
 data = np.expand_dims(data,axis=0)
 
+print(data.shape)
 
-
-
-model = load_model('weight200.h5')
+model = load_model('allnight.h5')
 
 pdata = model.predict(data)
 
-print(pdata.shape)
-
-pred = np.zeros((512,512))
+pred = np.zeros((height,width))
 
 
-for i in range(0,512):
-    for j in range(0,512):
+for h in range(0,height):
+    for w in range(0,width):
 
-        temp = pdata[0][i][j][0]
-        pred[i][j] = 0
+        temp = pdata[0][h][w][0]
+        pred[h][w] = 0
 
-        if(pdata[0][i][j][1] > temp) :
-            temp = pdata[0][i][j][1]
-            pred[i][j] = 1
+        if(pdata[0][h][w][1] > temp) :
+            temp = pdata[0][h][w][1]
+            pred[h][w] = 1
 
-        if(pdata[0][i][j][2] > temp) :
-            temp = pdata[0][i][j][2]
-            pred[i][j] = 2
+        if(pdata[0][h][w][2] > temp) :
+            temp = pdata[0][h][w][2]
+            pred[h][w] = 2
         
 
 fig = plt.figure()
